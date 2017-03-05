@@ -168,7 +168,7 @@ def handle_text_message(event):
     #     line_bot_api.reply_message(
     #         event.reply_token, TextSendMessage(text=event.message.text))
 
-    if event.source.text == "group":
+    if event.source.type == "group":
         panggil = ['fal', 'faldy', 'wan', 'pal']
         if any(text.lower() in s for s in panggil):
             profile = line_bot_api.get_profile(event.source.user_id)
