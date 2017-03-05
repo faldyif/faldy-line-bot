@@ -44,6 +44,7 @@ from linebot.models import (
 app = Flask(__name__)
 
 # get channel_secret and channel_access_token from your environment variable
+openweathermap_api_key = 'f8d94446c9d820927ce2353113226e93'
 channel_secret = os.getenv('LINE_CHANNEL_SECRET', '820c415efc164e8074138ddf068bb4c5')
 channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN',
                                  'JLB+RsS9re+dXMczK7amyqP7yJgI1gK+b4+1BmosA+LKSlx6fGSy5i3PKjVVIlyJCW15PmlzIq+uLxoZhpADxz9X5PeU6UiuKvwSzvPirSFvXZksAIjUunJ90qWi16wi3BIMCbbOX02TyXX0HYmcUwdB04t89/1O/w1cDnyilFU=')
@@ -171,6 +172,13 @@ def handle_text_message(event):
     panggil = ['fal', 'faldy', 'wan', 'pal']
     if any(text.lower() in s for s in panggil):
         manggil_aja = [text.lower() in s for s in panggil]
+        line_bot_api.reply_message(
+            event.reply_token, [
+                TextSendMessage(
+                    text=manggil_aja
+                )
+            ]
+        )
         if(text.lower() == manggil_aja):
             line_bot_api.reply_message(
                 event.reply_token, [
