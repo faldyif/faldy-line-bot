@@ -45,7 +45,8 @@ app = Flask(__name__)
 
 # get channel_secret and channel_access_token from your environment variable
 channel_secret = os.getenv('LINE_CHANNEL_SECRET', '820c415efc164e8074138ddf068bb4c5')
-channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', 'JLB+RsS9re+dXMczK7amyqP7yJgI1gK+b4+1BmosA+LKSlx6fGSy5i3PKjVVIlyJCW15PmlzIq+uLxoZhpADxz9X5PeU6UiuKvwSzvPirSFvXZksAIjUunJ90qWi16wi3BIMCbbOX02TyXX0HYmcUwdB04t89/1O/w1cDnyilFU=')
+channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN',
+                                 'JLB+RsS9re+dXMczK7amyqP7yJgI1gK+b4+1BmosA+LKSlx6fGSy5i3PKjVVIlyJCW15PmlzIq+uLxoZhpADxz9X5PeU6UiuKvwSzvPirSFvXZksAIjUunJ90qWi16wi3BIMCbbOX02TyXX0HYmcUwdB04t89/1O/w1cDnyilFU=')
 if channel_secret is None:
     print('Specify LINE_CHANNEL_SECRET as environment variable.')
     sys.exit(1)
@@ -92,83 +93,96 @@ def callback():
 def handle_text_message(event):
     text = event.message.text
 
-    if text == 'profile':
-        if isinstance(event.source, SourceUser):
+    # if 'profile' in text or 'profil' in text:
+    #     if isinstance(event.source, SourceUser):
+    #         profile = line_bot_api.get_profile(event.source.user_id)
+    #         line_bot_api.reply_message(
+    #             event.reply_token, [
+    #                 TextSendMessage(
+    #                     text='Nama kamu: ' + profile.display_name
+    #                 ),
+    #                 TextSendMessage(
+    #                     text='Status message kamu: ' + profile.status_message
+    #                 )
+    #             ]
+    #         )
+    #     else:
+    #         line_bot_api.reply_message(
+    #             event.reply_token,
+    #             TextMessage(text="Bot can't use profile API without user ID"))
+    # elif 'bye' in text or 'dadah' in text:
+    #     if isinstance(event.source, SourceGroup):
+    #         line_bot_api.reply_message(
+    #             event.reply_token, TextMessage(text='Sampai jumpa!'))
+    #         line_bot_api.leave_group(event.source.group_id)
+    #     elif isinstance(event.source, SourceRoom):
+    #         line_bot_api.reply_message(
+    #             event.reply_token, TextMessage(text='Sampai jumpa!'))
+    #         line_bot_api.leave_room(event.source.room_id)
+    #     else:
+    #         line_bot_api.reply_message(
+    #             event.reply_token,
+    #             TextMessage(text="Aku tidak bisa meninggalkamnu sendiri"))
+    # elif 'confirm' in text:
+    #     confirm_template = ConfirmTemplate(text='Do it?', actions=[
+    #         MessageTemplateAction(label='Yes', text='Yes!'),
+    #         MessageTemplateAction(label='No', text='No!'),
+    #     ])
+    #     template_message = TemplateSendMessage(
+    #         alt_text='Confirm alt text', template=confirm_template)
+    #     line_bot_api.reply_message(event.reply_token, template_message)
+    # elif 'buttons' in text:
+    #     buttons_template = ButtonsTemplate(
+    #         title='My buttons sample', text='Hello, my buttons', actions=[
+    #             URITemplateAction(
+    #                 label='Go to line.me', uri='https://line.me'),
+    #             PostbackTemplateAction(label='ping', data='ping'),
+    #             PostbackTemplateAction(
+    #                 label='ping with text', data='ping',
+    #                 text='ping'),
+    #             MessageTemplateAction(label='Translate Rice', text='米')
+    #         ])
+    #     template_message = TemplateSendMessage(
+    #         alt_text='Buttons alt text', template=buttons_template)
+    #     line_bot_api.reply_message(event.reply_token, template_message)
+    # elif 'carousel' in text:
+    #     carousel_template = CarouselTemplate(columns=[
+    #         CarouselColumn(text='hoge1', title='fuga1', actions=[
+    #             URITemplateAction(
+    #                 label='Go to line.me', uri='https://line.me'),
+    #             PostbackTemplateAction(label='ping', data='ping')
+    #         ]),
+    #         CarouselColumn(text='hoge2', title='fuga2', actions=[
+    #             PostbackTemplateAction(
+    #                 label='ping with text', data='ping',
+    #                 text='ping'),
+    #             MessageTemplateAction(label='Translate Rice', text='米')
+    #         ]),
+    #     ])
+    #     template_message = TemplateSendMessage(
+    #         alt_text='Buttons alt text', template=carousel_template)
+    #     line_bot_api.reply_message(event.reply_token, template_message)
+    # elif 'imagemap' in text:
+    #     pass
+    # else:
+    #     line_bot_api.reply_message(
+    #         event.reply_token, TextSendMessage(text=event.message.text))
+
+    if event.source.text == "group":
+        panggil = ['fal', 'faldy', 'wan', 'pal']
+        if any(text.lower() in s for s in panggil):
             profile = line_bot_api.get_profile(event.source.user_id)
             line_bot_api.reply_message(
                 event.reply_token, [
                     TextSendMessage(
-                        text='Display name: ' + profile.display_name
-                    ),
-                    TextSendMessage(
-                        text='Status message: ' + profile.status_message
-                    ),
-                    TemplateSendMessage(
-                        text=profile.user_id + ' ' + profile.picture_url
+                        text='Ya ' + profile.display_name + '?'
                     )
                 ]
             )
         else:
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextMessage(text="Bot can't use profile API without user ID"))
-    elif text == 'bye':
-        if isinstance(event.source, SourceGroup):
-            line_bot_api.reply_message(
-                event.reply_token, TextMessage(text='Leaving group'))
-            line_bot_api.leave_group(event.source.group_id)
-        elif isinstance(event.source, SourceRoom):
-            line_bot_api.reply_message(
-                event.reply_token, TextMessage(text='Leaving group'))
-            line_bot_api.leave_room(event.source.room_id)
-        else:
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextMessage(text="Bot can't leave from 1:1 chat"))
-    elif text == 'confirm':
-        confirm_template = ConfirmTemplate(text='Do it?', actions=[
-            MessageTemplateAction(label='Yes', text='Yes!'),
-            MessageTemplateAction(label='No', text='No!'),
-        ])
-        template_message = TemplateSendMessage(
-            alt_text='Confirm alt text', template=confirm_template)
-        line_bot_api.reply_message(event.reply_token, template_message)
-    elif text == 'buttons':
-        buttons_template = ButtonsTemplate(
-            title='My buttons sample', text='Hello, my buttons', actions=[
-                URITemplateAction(
-                    label='Go to line.me', uri='https://line.me'),
-                PostbackTemplateAction(label='ping', data='ping'),
-                PostbackTemplateAction(
-                    label='ping with text', data='ping',
-                    text='ping'),
-                MessageTemplateAction(label='Translate Rice', text='米')
-            ])
-        template_message = TemplateSendMessage(
-            alt_text='Buttons alt text', template=buttons_template)
-        line_bot_api.reply_message(event.reply_token, template_message)
-    elif text == 'carousel':
-        carousel_template = CarouselTemplate(columns=[
-            CarouselColumn(text='hoge1', title='fuga1', actions=[
-                URITemplateAction(
-                    label='Go to line.me', uri='https://line.me'),
-                PostbackTemplateAction(label='ping', data='ping')
-            ]),
-            CarouselColumn(text='hoge2', title='fuga2', actions=[
-                PostbackTemplateAction(
-                    label='ping with text', data='ping',
-                    text='ping'),
-                MessageTemplateAction(label='Translate Rice', text='米')
-            ]),
-        ])
-        template_message = TemplateSendMessage(
-            alt_text='Buttons alt text', template=carousel_template)
-        line_bot_api.reply_message(event.reply_token, template_message)
-    elif text == 'imagemap':
-        pass
+            pass
     else:
-        line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(text=event.message.text))
+        pass
 
 
 @handler.add(MessageEvent, message=LocationMessage)
