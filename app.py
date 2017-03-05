@@ -170,8 +170,8 @@ def handle_text_message(event):
     #         event.reply_token, TextSendMessage(text=event.message.text))
 
     panggil = ['fal', 'faldy', 'wan', 'pal']
-    if any(text.lower() in s for s in panggil):
-        manggil_aja = [text.lower() in s for s in panggil]
+    if any(text.lower() in panggil for text.lower() in panggil):
+        manggil_aja = [text.lower() in panggil for text.lower() in panggil]
         line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(
