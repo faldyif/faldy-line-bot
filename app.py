@@ -175,7 +175,7 @@ def handle_text_message(event):
             line_bot_api.reply_message(
                 event.reply_token, [
                     TextSendMessage(
-                        text='Ya ' + profile.display_name + '?'
+                        text='Ya?'
                     )
                 ]
             )
