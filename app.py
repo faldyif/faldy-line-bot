@@ -170,44 +170,43 @@ def handle_text_message(event):
     #         event.reply_token, TextSendMessage(text=event.message.text))
 
     panggil = ['fal', 'faldy', 'wan', 'pal']
-    if any(text.lower() in panggil for text.lower() in panggil):
-        manggil_aja = [text.lower() in panggil for text.lower() in panggil]
+    if any(text.lower() in s for s in panggil):
         line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(
-                    text=manggil_aja
+                    text="Ya?"
                 )
             ]
         )
-        if(text.lower() == manggil_aja):
+        # if(text.lower() == manggil_aja):
+        #     line_bot_api.reply_message(
+        #         event.reply_token, [
+        #             TextSendMessage(
+        #                 text='Ya?'
+        #             )
+        #         ]
+        #     )
+    elif 'cuaca' in text:
+        line_bot_api.reply_message(
+            event.reply_token, [
+                TextSendMessage(
+                    text='Cuaca hari ini cerah ya'
+                )
+            ]
+        )
+    elif 'bye' in text or 'dadah' in text or 'keluar kamu' in text:
+        if isinstance(event.source, SourceGroup):
             line_bot_api.reply_message(
-                event.reply_token, [
-                    TextSendMessage(
-                        text='Ya?'
-                    )
-                ]
-            )
-        elif 'cuaca' in text:
+                event.reply_token, TextMessage(text='Sampai jumpa!'))
+            line_bot_api.leave_group(event.source.group_id)
+        elif isinstance(event.source, SourceRoom):
             line_bot_api.reply_message(
-                event.reply_token, [
-                    TextSendMessage(
-                        text='Cuaca hari ini cerah ya'
-                    )
-                ]
-            )
-        elif 'bye' in text or 'dadah' in text or 'keluar kamu' in text:
-            if isinstance(event.source, SourceGroup):
-                line_bot_api.reply_message(
-                    event.reply_token, TextMessage(text='Sampai jumpa!'))
-                line_bot_api.leave_group(event.source.group_id)
-            elif isinstance(event.source, SourceRoom):
-                line_bot_api.reply_message(
-                    event.reply_token, TextMessage(text='Sampai jumpa!'))
-                line_bot_api.leave_room(event.source.room_id)
-            else:
-                line_bot_api.reply_message(
-                    event.reply_token,
-                    TextMessage(text="Aku tidak bisa meninggalkamnu sendiri"))
+                event.reply_token, TextMessage(text='Sampai jumpa!'))
+            line_bot_api.leave_room(event.source.room_id)
+        else:
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextMessage(text="Aku tidak bisa meninggalkamnu sendiri"))
     else:
         line_bot_api.reply_message(
             event.reply_token, [
