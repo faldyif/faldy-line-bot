@@ -102,6 +102,9 @@ def handle_text_message(event):
                     ),
                     TextSendMessage(
                         text='Status message: ' + profile.status_message
+                    ),
+                    TemplateSendMessage(
+                        text=profile.user_id + ' ' + profile.picture_url
                     )
                 ]
             )
