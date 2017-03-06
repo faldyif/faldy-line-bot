@@ -209,7 +209,7 @@ def handle_text_message(event):
                 TextMessage(text="Aku tidak bisa meninggalkamnu sendiri"))
     else:
         line_bot_api.reply_message(
-                event.reply_token, TextSendMessage(text=event.message.text))
+                event.reply_token, TextSendMessage("Diem napa eh"))
 
 
 @handler.add(MessageEvent, message=LocationMessage)
@@ -277,7 +277,7 @@ def handle_unfollow():
 def handle_join(event):
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text='Halo semuanya~'))
+        TextSendMessage(text='Fak gue dikick'))
 
 
 @handler.add(LeaveEvent)
