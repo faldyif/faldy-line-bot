@@ -209,12 +209,7 @@ def handle_text_message(event):
                 TextMessage(text="Aku tidak bisa meninggalkamnu sendiri"))
     else:
         line_bot_api.reply_message(
-            event.reply_token, [
-                TextSendMessage(
-                    text='Aku nggak mudeng maksudmu gimana. Coba jelasin lagi deh'
-                )
-            ]
-        )
+                event.reply_token, TextSendMessage(text=event.message.text))
 
 
 @handler.add(MessageEvent, message=LocationMessage)
