@@ -209,7 +209,9 @@ def handle_text_message(event):
                 TextMessage(text="Aku tidak bisa meninggalkamnu sendiri"))
     else:
         line_bot_api.reply_message(
-                event.reply_token, StickerSendMessage(100))
+                event.reply_token, StickerSendMessage(
+                    package_id=1,
+                    sticker_id=100))
 
 
 @handler.add(MessageEvent, message=LocationMessage)
