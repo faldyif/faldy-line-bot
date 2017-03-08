@@ -178,22 +178,26 @@ def handle_text_message(event):
                 )
             ]
         )
-        # if(text.lower() == manggil_aja):
-        #     line_bot_api.reply_message(
-        #         event.reply_token, [
-        #             TextSendMessage(
-        #                 text='Ya?'
-        #             )
-        #         ]
-        #     )
-    elif 'cuaca' in text:
+    elif ":(" in text:
         line_bot_api.reply_message(
-            event.reply_token, [
-                TextSendMessage(
-                    text='Cuaca hari ini cerah ya'
-                )
-            ]
-        )
+            event.reply_token, StickerSendMessage(
+                package_id=1,
+                sticker_id=9))
+    elif "wkwk" in text or "hehe" in text or "haha" in text:
+        line_bot_api.reply_message(
+            event.reply_token, StickerSendMessage(
+                package_id=1,
+                sticker_id=100))
+    elif "-_-" in text or "-__-" in text or "-___-" in text:
+        line_bot_api.reply_message(
+            event.reply_token, StickerSendMessage(
+                package_id=1,
+                sticker_id=3))
+    elif "..." in text:
+        line_bot_api.reply_message(
+            event.reply_token, StickerSendMessage(
+                package_id=1,
+                sticker_id=109))
     elif 'bye' in text or 'dadah' in text or 'keluar kamu' in text:
         if isinstance(event.source, SourceGroup):
             line_bot_api.reply_message(
@@ -207,11 +211,6 @@ def handle_text_message(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 TextMessage(text="Aku tidak bisa meninggalkamnu sendiri"))
-    else:
-        line_bot_api.reply_message(
-                event.reply_token, StickerSendMessage(
-                    package_id=1,
-                    sticker_id=100))
 
 
 @handler.add(MessageEvent, message=LocationMessage)
@@ -279,7 +278,7 @@ def handle_unfollow():
 def handle_join(event):
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text='Fak gue dikick'))
+        TextSendMessage(text='Halo semua~'))
 
 
 @handler.add(LeaveEvent)
