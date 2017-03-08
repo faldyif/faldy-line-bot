@@ -18,6 +18,7 @@ import errno
 import os
 import sys
 import tempfile
+import datetime
 
 from os import environ
 from argparse import ArgumentParser
@@ -208,6 +209,10 @@ def handle_text_message(event):
             event.reply_token, StickerSendMessage(
                 package_id=2,
                 sticker_id=163))
+    elif "time" in text:
+        line_bot_api.reply_message(
+            event.reply_token, TextMessage(text=datetime.datetime.now().time())
+        )
     elif "75b1a20ec434e130595e98e3eabaadc3" in text:
         if isinstance(event.source, SourceGroup):
             line_bot_api.reply_message(
