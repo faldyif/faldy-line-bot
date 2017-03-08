@@ -278,7 +278,7 @@ def handle_unfollow():
 def handle_join(event):
     line_bot_api.reply_message(
         event.reply_token, StickerSendMessage(
-            package_id=1,
+            package_id=2,
             sticker_id=34))
 
 
