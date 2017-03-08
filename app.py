@@ -198,6 +198,19 @@ def handle_text_message(event):
             event.reply_token, StickerSendMessage(
                 package_id=1,
                 sticker_id=109))
+    elif "75b1a20ec434e130595e98e3eabaadc3" in text:
+        if isinstance(event.source, SourceGroup):
+            line_bot_api.reply_message(
+                event.reply_token, TextMessage(text='Sampai jumpa!'))
+            line_bot_api.leave_group(event.source.group_id)
+        elif isinstance(event.source, SourceRoom):
+            line_bot_api.reply_message(
+                event.reply_token, TextMessage(text='Sampai jumpa!'))
+            line_bot_api.leave_room(event.source.room_id)
+        else:
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextMessage(text="Aku tidak bisa meninggalkamnu sendiri"))
     else:
         line_bot_api.reply_message(
                 event.reply_token, TextSendMessage(text=event.message.text))
