@@ -198,19 +198,9 @@ def handle_text_message(event):
             event.reply_token, StickerSendMessage(
                 package_id=1,
                 sticker_id=109))
-    elif 'bye' in text or 'dadah' in text or 'keluar kamu' in text:
-        if isinstance(event.source, SourceGroup):
-            line_bot_api.reply_message(
-                event.reply_token, StickerSendMessage(package_id=1, sticker_id=109))
-            line_bot_api.leave_group(event.source.group_id)
-        elif isinstance(event.source, SourceRoom):
-            line_bot_api.reply_message(
-                event.reply_token, StickerSendMessage(package_id=1, sticker_id=109))
-            line_bot_api.leave_room(event.source.room_id)
-        else:
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextMessage(text="Aku tidak bisa meninggalkamnu sendiri"))
+    else:
+        line_bot_api.reply_message(
+                event.reply_token, TextSendMessage(text=event.message.text))
 
 
 @handler.add(MessageEvent, message=LocationMessage)
