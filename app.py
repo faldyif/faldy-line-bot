@@ -277,8 +277,9 @@ def handle_unfollow():
 @handler.add(JoinEvent)
 def handle_join(event):
     line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text='Halo semua~'))
+        event.reply_token, StickerSendMessage(
+            package_id=1,
+            sticker_id=34))
 
 
 @handler.add(LeaveEvent)
