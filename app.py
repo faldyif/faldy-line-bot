@@ -198,6 +198,16 @@ def handle_text_message(event):
             event.reply_token, StickerSendMessage(
                 package_id=1,
                 sticker_id=109))
+    elif "?" in text:
+        line_bot_api.reply_message(
+            event.reply_token, StickerSendMessage(
+                package_id=2,
+                sticker_id=149))
+    elif ":v" in text:
+        line_bot_api.reply_message(
+            event.reply_token, StickerSendMessage(
+                package_id=2,
+                sticker_id=163))
     elif "75b1a20ec434e130595e98e3eabaadc3" in text:
         if isinstance(event.source, SourceGroup):
             line_bot_api.reply_message(
